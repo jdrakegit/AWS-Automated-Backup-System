@@ -9,3 +9,13 @@ Companies lose data all the time. Someone deletes the wrong file, a server gets 
 To fix that, backups need to run on their own, without a person clicking anything. That means giving something other than a human the permission to do it, which is where an IAM role comes in. Instead of using my own login, I set up a role that only AWS Backup can use, so it can create backups automatically on a schedule without me needing to be logged in or even awake.
 
 
+## Security Setup
+
+Before creating any resources on AWS, I handled the basic security setup.
+
+- Enabled MFA on my root account
+- Enabled MFA on my IAM admin user
+
+Wanted it secured before moving forward.
+
+

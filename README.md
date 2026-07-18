@@ -38,3 +38,17 @@ After that, I created the backup vault where the actual backups are going to be 
 - Vault Lock: not enabled
 
 I'm leaving Vault Lock off for now. I want to get the basic backup process working first, then turn it on later. It's mainly for compliance and protecting backups from ransomware.
+
+
+## Created an S3 Bucket
+
+I created an S3 bucket to actually have something to back up.
+
+- Versioning: enabled
+- Public access: fully blocked
+- Encryption: SSE-S3  (Amazon S3 managed keys)
+
+I left most of the other settings at their defaults since they were already the recommended options.I turned on versioning since it works well with AWS Backup, keeping older copies of files whenever something changes.
+
+
+

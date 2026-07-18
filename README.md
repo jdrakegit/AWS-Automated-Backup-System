@@ -28,3 +28,13 @@ Next, I created the IAM role that AWS Backup actually uses to run backups.
 
 I went with the AWS managed policy instead of writing my own policy, since it already covers exactly what AWS Backup needs. It also means the role can only do things related to backups and nothing else, which follows least privilege. In the future I want to improve my skills writing a fully custom policy myself, just to understand IAM permissions at a deeper level.
 
+
+## Backup Vault
+
+After that, I created the backup vault where the actual backups are going to be stored.
+
+- Created Backup Vault: `primary-backup-vault`
+- Encryption: AWS managed key (`aws/backup`)
+- Vault Lock: not enabled
+
+I'm leaving Vault Lock off for now. I want to get the basic backup process working first, then turn it on later. It's mainly for compliance and protecting backups from ransomware.

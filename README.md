@@ -19,3 +19,12 @@ Before creating any resources on AWS, I handled the basic security setup.
 Wanted it secured before moving forward.
 
 
+## IAM Setup
+
+Next, I created the IAM role that AWS Backup actually uses to run backups.
+
+- Created IAM Role: `AWSBackupServiceRole`
+- Attached AWS managed policy: `AWSBackupServiceRolePolicyForBackup`
+
+I went with the AWS managed policy instead of writing my own policy, since it already covers exactly what AWS Backup needs. It also means the role can only do things related to backups and nothing else, which follows least privilege. In the future I want to improve my skills writing a fully custom policy myself, just to understand IAM permissions at a deeper level.
+

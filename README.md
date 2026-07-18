@@ -51,4 +51,16 @@ I created an S3 bucket to actually have something to back up.
 I left most of the other settings at their defaults since they were already the recommended options.I turned on versioning since it works well with AWS Backup, keeping older copies of files whenever something changes.
 
 
+## Backup Plan
+
+Next, I created the actual backup plan that runs the schedule.
+
+- Plan name: `S3BackupPlan`
+- Rule: `DailyS3Backup`, runs daily at 12:30 AM
+- Retention: 30 days
+- Point-in-time recovery: enabled
+- IAM role: `AWSBackupServiceRole`
+- Resource assigned: my S3 bucket specifically, not all buckets in the account
+
+At first the resource assignment defaulted to an auto-generated IAM role instead of the one I built earlier. I caught it, deleted the assignment, and redid it using my own role instead.  I also made sure it was only pointing at my one bucket, instead of accidentally including all buckets in the account.
 

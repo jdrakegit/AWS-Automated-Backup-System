@@ -71,5 +71,12 @@ I ran a manual backup just to see if it actually worked, instead of waiting over
 
 It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself. I had to add one more AWS managed policy, `AWSBackupServiceRolePolicyForS3Backup`, to my IAM role to fix it.
 
+
+## First Automated Backup
+
+The next morning, I checked the Jobs page and saw a new backup that I didn't trigger myself. It ran automatically overnight at 12:30 AM based on the schedule in my backup plan, and it completed successfully.
+
+This confirmed the automation actually works end to end, not just when I run it manually.
+
 I ran it again after that and it worked. It took a bit since it was the first backup for the bucket, but it finished and created a real recovery point.
 

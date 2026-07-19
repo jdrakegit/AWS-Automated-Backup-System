@@ -91,3 +91,15 @@ I set up SNS so I could get notified about backups instead of checking the conso
 
 I kept the topic locked down so only I can publish to it or subscribe to it, nobody else.
 
+
+## EventBridge Rule
+
+The last thing I needed was a way to connect backup job events to my SNS topic, so I could actually get notified instead of checking the console every time.
+
+- Made a rule called `BackupJobStateChange`
+- It watches for AWS Backup job status changes
+- Sends those events to my SNS topic, `backup-notifications`
+- Let AWS create the IAM role for it automatically, since it only needed access to one thing.
+
+Now the whole thing works together. A backup runs, its status changes, EventBridge catches that, and SNS sends me an email.
+

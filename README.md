@@ -62,14 +62,14 @@ Next, I created the actual backup plan that runs the schedule.
 - IAM role: `AWSBackupServiceRole`
 - Resource assigned: my S3 bucket specifically, not all buckets in the account
 
-At first the resource assignment defaulted to an auto-generated IAM role instead of the one I built earlier. I caught it, deleted the assignment, and redid it using my own role instead.  I also made sure it was only pointing at my one bucket, instead of accidentally including all buckets in the account.
+At first the resource assignment defaulted to an auto-generated IAM role instead of the one I built earlier. I caught it, deleted the assignment,  and redid it using my own role instead.  I also made sure it was only pointing at my one bucket, instead of accidentally including all buckets in the account.
 
 
 ## Testing the Backup
 
 I ran a manual backup just to see if it actually worked, instead of waiting overnight for the schedule.
 
-It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself. I had to add one more AWS managed policy, `AWSBackupServiceRolePolicyForS3Backup`, to my IAM role to fix it.
+It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself.I had to add one more AWS managed policy, `AWSBackupServiceRolePolicyForS3Backup`, to my IAM role to fix it.
 
 
 ## First Automated Backup
@@ -79,4 +79,15 @@ The next morning, I checked the Jobs page and saw a new backup that I didn't tri
 This confirmed the automation actually works end to end, not just when I run it manually.
 
 I ran it again after that and it worked. It took a bit since it was the first backup for the bucket, but it finished and created a real recovery point.
+
+
+## SNS Notifications
+
+I set up SNS so I could get notified about backups instead of checking the console every time.
+
+- Created a topic called `backup-notifications` (Standard type)
+- Subscribed my email to it
+- Had to confirm the subscription through an email AWS sent me, which actually went to my spam folder at first
+
+I kept the topic locked down so only I can publish to it or subscribe to it, nobody else.
 

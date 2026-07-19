@@ -126,15 +126,35 @@ I set up a small CloudWatch dashboard to check on backup activity.
 
 Delete order if I shut this down:
 
-1. EventBridge rule
-2. SNS topic
-3. CloudWatch dashboard
-4. Backup plan
-5. Recovery points, then the vault (can't delete a vault with backups inside)
-6. S3 bucket
-7. IAM role
+1.  EventBridge rule
+2.  SNS topic
+3.  CloudWatch dashboard
+4.  Backup plan
+5.  Recovery points, then the vault (can't delete a vault with backups inside)
+6.  S3 bucket
+7.  IAM role
 
 Most of the cost risk is the vault holding backups long-term. Everything else here is free or basically free.
 
 Keeping it running for now since it's part of my portfolio.
 
+
+## Cost Estimate
+
+This project costs basically nothing at this size.
+
+- S3 storage: a few cents a month
+- AWS Backup: charged per GB and per job, tiny at this scale
+- SNS and EventBridge: covered by free tier
+- CloudWatch dashboard: small cost after free tier
+
+## Cost Estimate
+
+This project doesn't cost much at this size.
+
+- S3 storage: only a few cents per month
+- AWS Backup: charged based on how much data is backed up and how many backup jobs run
+- Amazon SNS and Amazon EventBridge: covered by the AWS Free Tier
+- CloudWatch dashboard: small cost after the Free Tier
+
+If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.

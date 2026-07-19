@@ -103,3 +103,11 @@ The last thing I needed was a way to connect backup job events to my SNS topic, 
 
 Now the whole thing works together. A backup runs, its status changes, EventBridge catches that, and SNS sends me an email.
 
+
+## Confirmed Notifications Work
+
+I ran another backup to test the SNS setup. It worked, I got three emails, one for each stage       (running, created, completed). The last one showed it finished successfully.
+
+This proved the whole thing works on its own. A backup runs, its status changes, EventBridge catches it, and SNS emails me. No manual checking needed.
+
+One thing I noticed is the emails are just raw JSON, not something easy to read. I want to look into using a small Lambda function later to clean that up.

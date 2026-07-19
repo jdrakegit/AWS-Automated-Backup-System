@@ -111,3 +111,12 @@ I ran another backup to test the SNS setup. It worked, I got three emails, one f
 This proved the whole thing works on its own. A backup runs, its status changes, EventBridge catches it, and SNS emails me. No manual checking needed.
 
 One thing I noticed is the emails are just raw JSON, not something easy to read. I want to look into using a small Lambda function later to clean that up.
+
+
+## CloudWatch Dashboard
+
+I set up a small CloudWatch dashboard to check on backup activity.
+
+- Created a dashboard called `BackupSystemDashboard`
+- Added two widgets:  completed jobs and created jobs
+- Wanted to track failed jobs too, but that metric doesn't show up until a backup actually fails. I'll add it later if that happens.

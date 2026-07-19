@@ -64,3 +64,12 @@ Next, I created the actual backup plan that runs the schedule.
 
 At first the resource assignment defaulted to an auto-generated IAM role instead of the one I built earlier. I caught it, deleted the assignment, and redid it using my own role instead.  I also made sure it was only pointing at my one bucket, instead of accidentally including all buckets in the account.
 
+
+## Testing the Backup
+
+I ran a manual backup just to see if it actually worked, instead of waiting overnight for the schedule.
+
+It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself. I had to add one more AWS managed policy, `AWSBackupServiceRolePolicyForS3Backup`, to my IAM role to fix it.
+
+I ran it again after that and it worked. It took a bit since it was the first backup for the bucket, but it finished and created a real recovery point.
+

@@ -158,3 +158,15 @@ This project doesn't cost much at this size.
 - CloudWatch dashboard: small cost after the Free Tier
 
 If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
+
+
+## Terraform Setup
+
+Started setting up Terraform.
+
+- Installed Terraform with Homebrew
+- Already had the AWS CLI installed
+- Made a new access key for my IAM user just for this
+- Ran `aws configure` and confirmed the CLI is using my IAM user,not root
+
+Next step is actually writing the Terraform

@@ -141,15 +141,6 @@ Keeping it running for now since it's part of my portfolio.
 
 ## Cost Estimate
 
-This project costs basically nothing at this size.
-
-- S3 storage: a few cents a month
-- AWS Backup: charged per GB and per job, tiny at this scale
-- SNS and EventBridge: covered by free tier
-- CloudWatch dashboard: small cost after free tier
-
-## Cost Estimate
-
 This project doesn't cost much at this size.
 
 - S3 storage: only a few cents per month

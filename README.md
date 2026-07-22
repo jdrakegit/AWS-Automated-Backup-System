@@ -158,6 +158,6 @@ Started setting up Terraform.
 - Installed Terraform with Homebrew
 - Already had the AWS CLI installed
 - Made a new access key for my IAM user just for this
-- Ran `aws configure` and confirmed the CLI is using my IAM user,not root
+- Ran `aws configure` and confirmed the CLI is using my IAM user
 
-Next step is actually writing the Terraform
+First Terraform file was just a provider block, telling Terraform to use AWS and my region. Ran `terraform init` and it worked.

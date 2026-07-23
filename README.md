@@ -151,6 +151,17 @@ This project doesn't cost much at this size.
 If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
 
 
+---
+
+# Part 2: Rebuilding This in Terraform
+
+Everything above this point was built by clicking through the AWS Console by hand. It all worked, and I tested and confirmed it end to end.
+
+Below this point, I'm rebuilding the same system using Terraform, so it's actually written in code instead of just existing because I clicked through it once. This also gives me a chance to learn Infrastructure as Code by applying it to something I already understand.
+
+---
+
+
 ## Terraform Setup
 
 Started setting up Terraform.

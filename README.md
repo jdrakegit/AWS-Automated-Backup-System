@@ -161,3 +161,13 @@ Started setting up Terraform.
 - Ran `aws configure` and confirmed the CLI is using my IAM user
 
 First Terraform file was just a provider block, telling Terraform to use AWS and my region. Ran `terraform init` and it worked.
+## Terraform: IAM Role
+
+This was my first time using Terraform, so I started with something I'd already built by hand, the IAM role, to learn how Terraform actually works.
+
+- Wrote `iam.tf` with the role and both policy attachments
+- Since the role already existed, I used `terraform import` to bring it under Terraform's management instead of creating a duplicate
+- Ran into an error importing the S3 policy attachment. Turned out the actual policy ARN didn't have `/service-role/` in the path like the other one did. Checked it directly with the AWS CLI and found the real ARN, then fixed my code.
+- Ran `terraform apply` and it synced everything. The only real change was updating the role's description to match what's in my code now.
+
+This was a good first resource to learn on. Importing existing infrastructure and debugging a real mismatch taught me more than if everything had just worked on the first try.

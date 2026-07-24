@@ -2,10 +2,13 @@ An automated AWS backup system I'm building to learn AWS Backup, IAM, and infras
 
 I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it.
 
+---
+
 # Part 1: Building This by Hand
 
 I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code.
 
+---
 
 ## The Problem
 
@@ -160,7 +163,6 @@ If I backed up more data or kept backups for a longer time, the monthly cost wou
 
 
 ---
-
 
 # Part 2: Rebuilding This in Terraform
 

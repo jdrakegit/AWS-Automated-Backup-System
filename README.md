@@ -202,3 +202,13 @@ Rebuilt the S3 bucket in Terraform, versioning, public access block, and encrypt
 - Ran `terraform plan` again and got "No changes," meaning my code now matches what's actually in AWS
 
 
+## Terraform: Backup Plan
+
+This one was harder than the others. First time really seeing how much detail Terraform needs to match reality.
+
+- Wrote `backup.tf` for the plan and the resource assignment
+- Had to import both. The assignment needed the plan ID and its own ID combined together
+- My first schedule was wrong. I assumed AWS stored the time in UTC, but it actually uses my own timezone. Had to check the real values with the AWS CLI and fix it
+- Tried adding the S3 backup options (ACLs and tags) in code, but Terraform doesn't support that for S3 yet, only EC2. Had to leave it out and tell Terraform to ignore that difference instead
+- Also had a syntax error from an unclosed block after editing
+- Finally got "No changes" after fixing everything, meaning my code actually matches what's really in AWS now

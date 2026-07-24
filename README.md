@@ -186,9 +186,9 @@ This was a good first resource to learn on. Importing existing infrastructure an
 
 ## Terraform: S3 Bucket
 
-Rebuilt the S3 bucket in Terraform, along with its versioning, public access block, and encryption settings.
+Rebuilt the S3 bucket in Terraform, versioning, public access block, and encryption included.
 
-- Wrote `s3.tf` with all four pieces (bucket, versioning, public access block, encryption)
-- Imported all four into Terraform, since they already existed
-- Found one small mismatch: the real bucket had `bucket_key_enabled = true` for encryption, which wasn't in my code. Added that setting in and it matched.
-- Ran `terraform plan` again and got "No changes," meaning my code now fully matches what's actually in AWS
+- Wrote `s3.tf` for all four pieces
+- Imported them since they already existed
+- Found one mismatch, the bucket had `bucket_key_enabled = true` that wasn't in my code. Added it and it matched.
+- Ran `terraform plan` again and got "No changes," meaning my code now matches what's actually in AWS

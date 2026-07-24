@@ -161,6 +161,7 @@ If I backed up more data or kept backups for a longer time, the monthly cost wou
 
 ---
 
+
 # Part 2: Rebuilding This in Terraform
 
 Everything above this point was built by clicking through the AWS Console by hand. It all worked, and I tested and confirmed it end to end.

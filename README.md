@@ -1,5 +1,8 @@
 # AWS-Automated-Backup-System
+
 An automated AWS backup system I'm building to learn AWS Backup, IAM, and infrastructure as code. Backs up resources on a schedule, alerts me if something fails, and follows least-privilege security practices.
+
+I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it.
 
 
 ## The Problem
@@ -7,6 +10,9 @@ An automated AWS backup system I'm building to learn AWS Backup, IAM, and infras
 Companies lose data all the time. Someone deletes the wrong file, a server gets corrupted, ransomware hits, or an employee leaves and something important goes missing with them. If backups aren't automatic, they usually don't happen at all, since manual backups depend on someone remembering to do them.
 
 To fix that, backups need to run on their own, without a person clicking anything. That means giving something other than a human the permission to do it, which is where an IAM role comes in. Instead of using my own login, I set up a role that only AWS Backup can use, so it can create backups automatically on a schedule without me needing to be logged in or even awake.
+
+
+I will be doing this first manually clicking through and then trying terraform for my first to try to learn and understand it
 
 
 ## Security Setup
@@ -192,3 +198,5 @@ Rebuilt the S3 bucket in Terraform, versioning, public access block, and encrypt
 - Imported them since they already existed
 - Found one mismatch, the bucket had `bucket_key_enabled = true` that wasn't in my code. Added it and it matched.
 - Ran `terraform plan` again and got "No changes," meaning my code now matches what's actually in AWS
+
+

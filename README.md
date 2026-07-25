@@ -239,3 +239,12 @@ Rebuilt the EventBridge rule and target in Terraform. Learned a lot here.
 - Finally got "No changes," which meant everything actually matched
 
 
+## Terraform: CloudWatch Dashboard
+
+Rebuilt the dashboard in Terraform. Last one for this project.
+
+- Wrote `cloudwatch.tf` with both widgets in one big JSON block. Turns out dashboards work differently than everything else, the whole layout is one JSON structure instead of separate resources like the other services
+- Imported it using just the dashboard name
+- Had two small differences. My guessed height was wrong, and I didn't know AWS had automatically added something called a sparkline to the widgets. Fixed both once I saw them in the plan
+- Also added a title that was missing, then applied it
+- Ran `terraform plan` one more time and finally got "No changes." Everything in this project is now managed by Terraform

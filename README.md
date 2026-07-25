@@ -6,7 +6,8 @@ I'm building this project twice. First by clicking through the AWS Console by ha
 
 # Part 1: Building This by Hand
 
-I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code.
+I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using documentation and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
+
 
 ---
 
@@ -225,3 +226,6 @@ Rebuilt the SNS topic and subscription in Terraform.
 - Topic imported clean
 - Subscription needed one extra step, had two settings that kept showing as different even after adding them to my code. Running `terraform apply` once fixed it
 - Got "No changes" after that
+
+
+

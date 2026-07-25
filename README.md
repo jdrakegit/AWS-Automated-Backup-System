@@ -215,3 +215,13 @@ This one was harder than the others. First time really seeing how much detail Te
 - Tried adding the S3 backup options (ACLs and tags) in code, but Terraform doesn't support that for S3 yet, only EC2. Had to leave it out and tell Terraform to ignore that difference instead
 - Also had a syntax error from an unclosed block after editing
 - Finally got "No changes" after fixing everything, meaning my code actually matches what's really in AWS now
+
+
+## Terraform: SNS
+
+Rebuilt the SNS topic and subscription in Terraform.
+
+- Wrote `sns.tf` for both
+- Topic imported clean
+- Subscription needed one extra step, had two settings that kept showing as different even after adding them to my code. Running `terraform apply` once fixed it
+- Got "No changes" after that

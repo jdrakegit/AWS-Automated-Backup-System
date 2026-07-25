@@ -227,4 +227,15 @@ Rebuilt the SNS topic and subscription in Terraform.
 - Got "No changes" after that
 
 
+## Terraform: EventBridge
+
+Rebuilt the EventBridge rule and target in Terraform. Learned a lot here.
+
+- Wrote `eventbridge.tf` for the rule and the SNS target
+- The rule imported fine
+- The target kept failing though. Turns out AWS gives targets their own auto generated ID, not the name I typed in the console. Had to look up the real ID with the AWS CLI to fix it
+- Also learned that AWS quietly created an IAM role for this target when I built it by hand, and I had to add that into my code too or Terraform kept trying to remove it
+- TextEdit wasn't actually saving my changes for some reason, so I learned how to write the file directly from Terminal instead
+- Finally got "No changes," which meant everything actually matched
+
 

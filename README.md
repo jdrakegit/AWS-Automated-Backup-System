@@ -1,15 +1,15 @@
 An automated AWS backup system I'm building to learn AWS Backup, IAM, and infrastructure as code. Backs up resources on a schedule, alerts me if something fails, and follows least-privilege security practices.
 
 I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it.
----
 
+---
 
 # Part 1: Building This by Hand
 
 I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using AWS documentation, searching the internet, and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
 
-
 ---
+
 ## The Problem
 
 Companies lose data all the time. Someone deletes the wrong file, a server gets corrupted, ransomware hits, or an employee leaves and something important goes missing with them. If backups aren't automatic, they usually don't happen at all, since manual backups depend on someone remembering to do them.

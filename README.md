@@ -6,21 +6,19 @@ I'm building this project twice. First by clicking through the AWS Console by ha
 
 ---
 
-# Part 1: Building This by Hand
-
-I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using AWS documentation, searching the internet, and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
-
----
-
 ## The Problem
 
 Companies lose data all the time. Someone deletes the wrong file, a server gets corrupted, ransomware hits, or an employee leaves and something important goes missing with them. If backups aren't automatic, they usually don't happen at all, since manual backups depend on someone remembering to do them.
 
 To fix that, backups need to run on their own, without a person clicking anything. That means giving something other than a human the permission to do it, which is where an IAM role comes in. Instead of using my own login, I set up a role that only AWS Backup can use, so it can create backups automatically on a schedule without me needing to be logged in or even awake.
 
+---
 
-I will be doing this first manually clicking through and then trying terraform for my first to try to learn and understand it
+# Part 1: Building This by Hand
 
+I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using AWS documentation, searching the internet, and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
+
+---
 
 ## Security Setup
 

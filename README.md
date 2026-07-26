@@ -261,3 +261,19 @@ Moved Terraform's state into an S3 bucket instead of my laptop.
 - Ran `terraform plan` again, still said no changes, just reading from S3 now
 
 Needed this so GitHub Actions can use the same state later.
+
+
+## CI/CD Pipeline
+
+Set up GitHub Actions so Terraform runs on its own instead of me typing commands every time.
+
+- Made a separate S3 bucket just for Terraform's state, since GitHub Actions can't see files on my laptop
+- Added my AWS keys as GitHub Secrets so the workflow could log in without putting any keys directly in my code
+- Wrote a workflow file that grabs my code, installs Terraform, and runs init, plan, and apply automatically whenever I push to main
+- Had to actually turn this into a real git repo. Moved my Terraform files into a `terraform` folder and learned real git commands instead of just using the GitHub website like I had been
+- Got a permissions error the first time I pushed the workflow file. Turns out GitHub needs a separate `workflow` permission on my access token, not just `repo`. Fixed that and pushed again
+- First real run worked, and Terraform Plan said "No changes," which meant it actually matched my real AWS setup
+
+Right now it applies changes automatically with no approval step in between. I want to add one later so nothing changes without me actually checking it first.
+
+I want to be upfront that I learned all of this through Google searches and AI help. I'm new to Terraform and CI/CD, and I used open resources to actually understand how it works instead of just copying commands blindly.

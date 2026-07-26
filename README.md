@@ -248,3 +248,16 @@ Rebuilt the dashboard in Terraform. Last one for this project.
 - Had two small differences. My guessed height was wrong, and I didn't know AWS had automatically added something called a sparkline to the widgets. Fixed both once I saw them in the plan
 - Also added a title that was missing, then applied it
 - Ran `terraform plan` one more time and finally got "No changes." Everything in this project is now managed by Terraform
+
+
+## Terraform: Remote State in S3
+
+Moved Terraform's state into an S3 bucket instead of my laptop.
+
+- Made a new bucket, `jdrake-terraform-state`, using the CLI since Terraform can't create the bucket it stores its own state in
+- Locked it down the same way as my other bucket
+- Added a `backend "s3"` block to `provider.tf`
+- Ran `terraform init -migrate-state` and typed yes
+- Ran `terraform plan` again, still said no changes, just reading from S3 now
+
+Needed this so GitHub Actions can use the same state later.

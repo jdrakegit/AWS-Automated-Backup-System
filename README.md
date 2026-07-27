@@ -6,6 +6,12 @@ I'm building this project twice. First by clicking through the AWS Console by ha
 
 ---
 
+## Architecture
+
+![Architecture Diagram](diagrams/architecture.png)
+
+---
+
 ## The Problem
 
 Companies lose data all the time. Someone deletes the wrong file, a server gets corrupted, ransomware hits, or an employee leaves and something important goes missing with them. If backups aren't automatic, they usually don't happen at all, since manual backups depend on someone remembering to do them.

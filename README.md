@@ -307,3 +307,22 @@ This project doesn't cost much at this size.
 - GitHub Actions: free for a public repo
 
 If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
+
+
+## Screenshots
+
+**Backup jobs**
+
+![Backup Jobs Dashboard](screenshots/backup-jobs-dashboard.jpg)
+
+**Daily emails**
+
+![Backup Emails](screenshots/backup-emails-history.jpg)
+
+**CloudWatch**
+
+![CloudWatch Dashboard](screenshots/cloudwatch-dashboard.jpg)
+
+**CI/CD approval**
+
+![GitHub Actions Approval](screenshots/github-actions-approval.jpg)

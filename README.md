@@ -2,7 +2,13 @@
 
 An automated AWS backup system I'm building to learn AWS Backup, IAM, and infrastructure as code. Backs up resources on a schedule, alerts me if something fails, and follows least-privilege security practices.
 
-I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it.
+I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it. Since this was my first time using Terraform, I leaned on AI and Google searches to guide me through it, using open resources to actually understand how things worked instead of just copying commands blindly.
+
+---
+
+## Architecture
+
+![Architecture Diagram](diagrams/architecture.png)
 
 ---
 
@@ -16,7 +22,7 @@ To fix that, backups need to run on their own, without a person clicking anythin
 
 # Part 1: Building This by Hand
 
-I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then 2nd part, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using AWS documentation, searching the internet, and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
+This was my first real project with AWS Backup. I learned as I went, using AWS documentation and searching the internet to understand each service, work through errors, and figure out why things were built the way they were.
 
 ---
 
@@ -168,7 +174,7 @@ If I backed up more data or kept backups for a longer time, the monthly cost wou
 
 Everything above this point was built by clicking through the AWS Console by hand. It all worked, and I tested and confirmed it end to end.
 
-Below this point, I'm rebuilding the same system using Terraform, so it's actually written in code instead of just existing because I clicked through it once. This also gives me a chance to learn Infrastructure as Code by applying it to something I already understand.
+Below this point, I'm rebuilding the same system using Terraform. This was my first real project with it, and I used AI assistance, documentation, and web searches to learn the syntax and debug errors along the way, making sure I understood each piece before moving on.
 
 ---
 
@@ -276,4 +282,13 @@ Set up GitHub Actions so Terraform runs on its own instead of me typing commands
 
 Right now it applies changes automatically with no approval step in between. I want to add one later so nothing changes without me actually checking it first.
 
-I want to be upfront that I learned all of this through Google searches and AI help. I'm new to Terraform and CI/CD, and I used open resources to actually understand how it works instead of just copying commands blindly.
+## CI/CD: Manual Approval Gate
+
+Added a step so nothing gets applied to AWS without me checking it first.
+
+- Split the workflow into two jobs, one for plan and one for apply
+- Made a GitHub Environment called production and set it to need my approval before running
+- Ran into a merge conflict pushing this since I'd edited the README on GitHub and my files locally at the same time. Had to learn git pull and merge, and accidentally got dropped into Vim for the first time
+- Tested it by pushing a change. Plan ran on its own, then apply paused and waited for me. I approved it and apply ran right after and worked
+
+Now the pipeline actually pauses and waits for me before changing anything in AWS.

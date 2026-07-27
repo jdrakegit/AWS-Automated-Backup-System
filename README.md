@@ -253,6 +253,7 @@ Set up GitHub Actions so Terraform runs on its own instead of me typing commands
 
 Right now it applies changes automatically with no approval step in between. I want to add one later so nothing changes without me actually checking it first.
 
+
 ## CI/CD: Manual Approval Gate
 
 Added a step so nothing gets applied to AWS without me checking it first.
@@ -263,6 +264,17 @@ Added a step so nothing gets applied to AWS without me checking it first.
 - Tested it by pushing a change. Plan ran on its own, then apply paused and waited for me. I approved it and apply ran right after and worked
 
 Now the pipeline actually pauses and waits for me before changing anything in AWS.
+
+
+## CI/CD: Fixing Unnecessary Runs
+
+I noticed the workflow was running on every single push, even small README edits I made through GitHub's website. That meant it was running plan and waiting for my approval on changes that had nothing to do with the actual infrastructure.
+
+- Added a `paths` filter so it only runs when something inside the `terraform` folder actually changes
+- Cancelled a bunch of old runs that were just stuck waiting because of doc-only commits
+- Tested it by editing the README first (nothing triggered) and then editing a Terraform file (it triggered, ran plan, waited for approval, and worked after I approved it)
+
+Now the pipeline only runs when it actually needs to.
 
 
 ## Cleanup

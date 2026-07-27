@@ -22,7 +22,7 @@ To fix that, backups need to run on their own, without a person clicking anythin
 
 # Part 1: Building This by Hand
 
-I'm doing this project two ways. First, clicking through the AWS Console manually to learn how everything works. Then 2nd part, I'll rebuild it using Terraform to learn Infrastructure as Code. This was my first real project with both. I learned as I went, using AWS documentation, searching the internet, and AI assistance to understand each service, work through errors, and figure out why things were built the way they were.
+This was my first real project with AWS Backup. I learned as I went, using AWS documentation and searching the internet to understand each service, work through errors, and figure out why things were built the way they were.
 
 ---
 

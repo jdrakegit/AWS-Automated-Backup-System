@@ -2,7 +2,7 @@
 
 An automated AWS backup system I'm building to learn AWS Backup, IAM, and infrastructure as code. Backs up resources on a schedule, alerts me if something fails, and follows least-privilege security practices.
 
-I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it.
+I'm building this project twice. First by clicking through the AWS Console by hand, then again using Terraform, so I can actually learn how infrastructure as code works instead of just reading about it. Since this was my first time using Terraform, I leaned on AI and Google searches to guide me through it, using open resources to actually understand how things worked instead of just copying commands blindly.
 
 ---
 
@@ -174,7 +174,7 @@ If I backed up more data or kept backups for a longer time, the monthly cost wou
 
 Everything above this point was built by clicking through the AWS Console by hand. It all worked, and I tested and confirmed it end to end.
 
-Below this point, I'm rebuilding the same system using Terraform, so it's actually written in code instead of just existing because I clicked through it once. This also gives me a chance to learn Infrastructure as Code by applying it to something I already understand.
+Below this point, I'm rebuilding the same system using Terraform. This was my first real project with it, and I used AI assistance, documentation, and web searches to learn the syntax and debug errors along the way, making sure I understood each piece before moving on.
 
 ---
 
@@ -281,5 +281,3 @@ Set up GitHub Actions so Terraform runs on its own instead of me typing commands
 - First real run worked, and Terraform Plan said "No changes," which meant it actually matched my real AWS setup
 
 Right now it applies changes automatically with no approval step in between. I want to add one later so nothing changes without me actually checking it first.
-
-I want to be upfront that I learned all of this through Google searches and AI help. I'm new to Terraform and CI/CD, and I used open resources to actually understand how it works instead of just copying commands blindly.

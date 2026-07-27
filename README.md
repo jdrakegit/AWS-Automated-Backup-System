@@ -139,35 +139,6 @@ I set up a small CloudWatch dashboard to check on backup activity.
 - Wanted to track failed jobs too, but that metric doesn't show up until a backup actually fails. I'll add it later if that happens.
 
 
-## Cleanup
-
-Delete order if I shut this down:
-
-1.  EventBridge rule
-2.  SNS topic
-3.  CloudWatch dashboard
-4.  Backup plan
-5.  Recovery points, then the vault (can't delete a vault with backups inside)
-6.  S3 bucket
-7.  IAM role
-
-Most of the cost risk is the vault holding backups long-term. Everything else here is free or basically free.
-
-Keeping it running for now since it's part of my portfolio.
-
-
-## Cost Estimate
-
-This project doesn't cost much at this size.
-
-- S3 storage: only a few cents per month
-- AWS Backup: charged based on how much data is backed up and how many backup jobs run
-- Amazon SNS and Amazon EventBridge: covered by the AWS Free Tier
-- CloudWatch dashboard: small cost after the Free Tier
-
-If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
-
-
 ---
 
 # Part 2: Rebuilding This in Terraform
@@ -292,3 +263,35 @@ Added a step so nothing gets applied to AWS without me checking it first.
 - Tested it by pushing a change. Plan ran on its own, then apply paused and waited for me. I approved it and apply ran right after and worked
 
 Now the pipeline actually pauses and waits for me before changing anything in AWS.
+
+
+## Cleanup
+
+Delete order if I shut this down:
+
+1. GitHub Actions workflow (just delete the `.github/workflows` file, or disable the repo's Actions)
+2. EventBridge rule
+3. SNS topic
+4. CloudWatch dashboard
+5. Backup plan
+6. Recovery points, then the vault (can't delete a vault with backups inside)
+7. S3 bucket
+8. IAM role
+9. Terraform state bucket (`jdrake-terraform-state`), only after everything else is destroyed through Terraform first
+
+Most of the cost risk is the vault holding backups long-term. Everything else here is free or basically free.
+
+Keeping it running for now since it's part of my portfolio.
+
+## Cost Estimate
+
+This project doesn't cost much at this size.
+
+- S3 storage: only a few cents per month
+- AWS Backup: charged based on how much data is backed up and how many backup jobs run
+- Amazon SNS and Amazon EventBridge: covered by the AWS Free Tier
+- CloudWatch dashboard: small cost after the Free Tier
+- Terraform state bucket: a few cents a month at most, it's a small file
+- GitHub Actions: free for a public repo
+
+If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.

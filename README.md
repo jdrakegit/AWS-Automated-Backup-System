@@ -97,6 +97,7 @@ The next morning, I checked the Jobs page and saw a new backup that I didn't tri
 
 This confirmed the automation actually works end to end, not just when I run it manually.
 
+![Backup Jobs Dashboard](screenshots/backup-jobs-dashboard.jpg)
 
 ## SNS Notifications
 
@@ -129,6 +130,7 @@ This proved the whole thing works on its own. A backup runs, its status changes,
 
 One thing I noticed is the emails are just raw JSON, not something easy to read. I want to look into using a small Lambda function later to clean that up.
 
+![Backup Emails](screenshots/backup-emails-history.jpg)
 
 ## CloudWatch Dashboard
 
@@ -226,6 +228,8 @@ Rebuilt the dashboard in Terraform. Last one for this project.
 - Also added a title that was missing, then applied it
 - Ran `terraform plan` one more time and finally got "No changes." Everything in this project is now managed by Terraform
 
+  ![CloudWatch Dashboard](screenshots/cloudwatch-dashboard.jpg)
+
 
 ## Terraform: Remote State in S3
 
@@ -276,6 +280,8 @@ I noticed the workflow was running on every single push, even small README edits
 
 Now the pipeline only runs when it actually needs to.
 
+![GitHub Actions Approval](screenshots/github-actions-approval.jpg)
+
 
 ## Cleanup
 
@@ -307,22 +313,3 @@ This project doesn't cost much at this size.
 - GitHub Actions: free for a public repo
 
 If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
-
-
-## Screenshots
-
-**Backup jobs**
-
-![Backup Jobs Dashboard](screenshots/backup-jobs-dashboard.jpg)
-
-**Daily emails**
-
-![Backup Emails](screenshots/backup-emails-history.jpg)
-
-**CloudWatch**
-
-![CloudWatch Dashboard](screenshots/cloudwatch-dashboard.jpg)
-
-**CI/CD approval**
-
-![GitHub Actions Approval](screenshots/github-actions-approval.jpg)

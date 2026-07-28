@@ -86,4 +86,160 @@ At first the resource assignment defaulted to an auto-generated IAM role instead
 
 I ran a manual backup just to see if it actually worked, instead of waiting overnight for the schedule.
 
-It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself.  I had to add one
+It failed the first time with a permissions error. The regular AWS Backup policy wasn't enough for S3 by itself.  I had to add one more AWS managed policy, `AWSBackupServiceRolePolicyForS3Backup`, to my IAM role to fix it.
+
+I ran it again after that and it worked. It took a bit since it was the first backup for the bucket, but it finished and created a real recovery point.
+
+
+## First Automated Backup
+
+The next morning, I checked the Jobs page and saw a new backup that I didn't trigger myself.  It ran automatically overnight at 12:30 AM based on the schedule in my backup plan, and it completed successfully.
+
+This confirmed the automation actually works end to end, not just when I run it manually.
+
+![Backup Jobs Dashboard](screenshots/backup-jobs-dashboard.jpg)
+
+## SNS Notifications
+
+I set up SNS so I could get notified about backups instead of checking the console every time.
+
+- Created a topic called `backup-notifications` (Standard type)
+- Subscribed my email to it
+- Had to confirm the subscription through an email AWS sent me, which actually went to my spam folder at first
+
+I kept the topic locked down so only I can publish to it or subscribe to it, nobody else.
+
+
+## EventBridge Rule
+
+The last thing I needed was a way to connect backup job events to my SNS topic, so I could actually get notified instead of checking the console every time.
+
+- Made a rule called `BackupJobStateChange`
+- It watches for AWS Backup job status changes
+- Sends those events to my SNS topic, `backup-notifications`
+- Let AWS create the IAM role for it automatically, since it only needed access to one thing.
+
+Now the whole thing works together. A backup runs, its status changes, EventBridge catches that, and SNS sends me an email.
+
+
+## Confirmed Notifications Work
+
+I ran another backup to test the SNS setup. It worked, I got three emails, one for each stage       (running, created, completed). The last one showed it finished successfully.
+
+This proved the whole thing works on its own. A backup runs, its status changes, EventBridge catches it, and SNS emails me. No manual checking needed.
+
+One thing I noticed is the emails are just raw JSON, not something easy to read. I want to look into using a small Lambda function later to clean that up.
+
+![Backup Emails](screenshots/backup-emails-history.jpg)
+
+## CloudWatch Dashboard
+
+I set up a small CloudWatch dashboard to check on backup activity.
+
+- Created a dashboard called `BackupSystemDashboard`
+- Added two widgets:  completed jobs and created jobs
+- Wanted to track failed jobs too, but that metric doesn't show up until a backup actually fails. I'll add it later if that happens.
+
+
+---
+
+# Part 2: Rebuilding This in Terraform
+
+Everything above this was built by clicking through the AWS Console. It worked, and I tested it end to end.
+
+Now I'm rebuilding the same thing using Terraform. This was my first real Terraform project, so I used AWS docs, AI, and web searches to figure out the syntax and fix errors as they came up.
+
+---
+
+## Terraform Setup
+
+Installed Terraform with Homebrew. Already had the AWS CLI, so I made a new access key just for this and ran `aws configure` to connect it. First file was just a provider block telling Terraform to use AWS and my region. Ran `terraform init` and it worked.
+
+## Terraform: IAM Role
+
+Wrote `iam.tf` for the role and imported it since it already existed. One policy failed to import because I had the wrong path in the ARN. Checked the real one with the AWS CLI and fixed it. Applied it and it matched.
+
+## Terraform: S3 Bucket
+
+Rebuilt the bucket in code, versioning, public access, and encryption included. One setting called `bucket_key_enabled` was missing from my code. Added it and it matched.
+
+## Terraform: Backup Plan
+
+This one was harder. Wrote the plan and had to import both it and the resource assignment. My schedule was wrong at first, I thought it used UTC but it actually uses my own timezone. Also found out Terraform doesn't support one of the S3 settings yet, so I had to skip it and tell Terraform to ignore that part. Eventually got everything matching.
+
+## Terraform: SNS
+
+Rebuilt the topic and subscription. A couple settings kept showing as different even after I added them to my code. Running apply once fixed it.
+
+## Terraform: EventBridge
+
+Rebuilt the rule and target. The rule was fine, but the target kept failing to import because AWS gives it its own auto generated ID, not the name I typed. Found the real ID with the CLI. Also had to add an IAM role AWS made automatically, or Terraform kept trying to delete it. TextEdit stopped saving my changes at some point, so I started writing files straight from Terminal instead.
+
+## Terraform: CloudWatch Dashboard
+
+Dashboards work differently, the whole thing is one big JSON block instead of separate pieces. Imported it using the dashboard name. Fixed a wrong height and a setting called sparkline that AWS added on its own. Matched after that.
+
+![CloudWatch Dashboard](screenshots/cloudwatch-dashboard.jpg)
+
+
+## Terraform: Remote State in S3
+
+Moved Terraform's state into its own S3 bucket instead of keeping it on my laptop. Had to make that bucket with the CLI since Terraform can't create the bucket it stores its own state in. Locked it down the same way as my other bucket and pointed Terraform at it.
+
+
+## CI/CD Pipeline
+
+Set up GitHub Actions so Terraform runs on its own when I push code. Stored my AWS keys as GitHub Secrets and wrote a workflow to run init, plan, and apply automatically. Had to actually turn this into a real git repo and learn git commands instead of just using the website. Got a permissions error pushing the workflow file, fixed it, pushed again, and it worked.
+
+## CI/CD: Manual Approval Gate
+
+Split the workflow into two parts, plan and apply, so apply waits for my approval. Ran into a merge conflict pushing this and ended up learning git pull, merging, and even got stuck in Vim by accident. Tested it and it worked, plan ran, apply waited, I approved it, and it went through.
+
+
+## CI/CD: Fixing Unnecessary Runs
+
+Noticed the workflow ran even on small README edits that had nothing to do with the actual infrastructure. Added a filter so it only runs when a Terraform file changes. Tested it, a README edit didn't trigger anything, but a real Terraform change did.
+
+![GitHub Actions Approval](screenshots/github-actions-approval.jpg)
+
+---
+
+## Cleanup
+
+Order I'd delete things in to stop any charges:
+
+1. GitHub Actions workflow
+2. EventBridge rule
+3. SNS topic
+4. CloudWatch dashboard
+5. Backup plan
+6. Recovery points, then the vault
+7. S3 bucket
+8. IAM role
+9. Terraform state bucket, only after everything else is gone
+
+---
+
+## Future Improvements
+
+- Test restoring a backup, not just creating one
+- Write a custom IAM policy instead of the managed one
+- Add a Lambda to clean up the notification emails
+- Back up more than just S3, like EBS or EFS
+- Learn Terraform modules for reusable code
+
+---
+
+## Resources
+
+Docs I used throughout this project:
+
+- [AWS Backup Developer Guide](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
+- [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+- [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Amazon EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
+- [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+- [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html)
+- [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- [Terraform CLI Documentation](https://developer.hashicorp.com/terraform/cli)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)

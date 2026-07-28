@@ -200,3 +200,12 @@ Noticed the workflow ran even on small README edits that had nothing to do with 
 ![GitHub Actions Approval](screenshots/github-actions-approval.jpg)
 
 ---
+
+
+## Future Improvements
+
+- Test restoring a backup, not just creating one
+- Write a custom IAM policy instead of the managed one
+- Add a Lambda to clean up the notification emails
+- Back up more than just S3, like EBS or EFS
+- Learn Terraform modules for reusable code

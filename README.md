@@ -314,7 +314,6 @@ This project doesn't cost much at this size.
 
 If I backed up more data or kept backups for a longer time, the monthly cost would go up. For me right now, everything falls under the Free Tier, so this project has cost me nothing.
 
----
 
 ## Resources
 
@@ -330,4 +329,4 @@ Docs I used throughout this project:
 - [Terraform CLI Documentation](https://developer.hashicorp.com/terraform/cli)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
----
+
